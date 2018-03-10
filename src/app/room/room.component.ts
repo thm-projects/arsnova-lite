@@ -36,4 +36,8 @@ export class RoomComponent implements OnInit {
     this.roomService.deleteRoom(room).subscribe();
     this.location.back();
   }
+
+  goBack(): void {
+    this.location.back();
+  }
 }
