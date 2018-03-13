@@ -1,7 +1,6 @@
-import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Format } from './content';
 
-export class InMemoryDataService implements InMemoryDbService {
+export class InMemoryDataService {
   /**
    * Gets called by the in memory db for generating ids for newly inserted entities.
    * As the default genId function is only capable of generating numeric ids but we're
