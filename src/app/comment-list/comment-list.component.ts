@@ -48,7 +48,7 @@ export class CommentListComponent implements OnInit {
       this.commentService.getComments(roomId)
         .subscribe(comments => this.comments = comments);
     } else if (this.userRole === UserRole.PARTICIPANT) {
-      this.commentService.searchComments(roomId, this.user.id)
+      this.commentService.searchComments(roomId, this.user.userId)
         .subscribe(comments => this.comments = comments);
     }
   }
