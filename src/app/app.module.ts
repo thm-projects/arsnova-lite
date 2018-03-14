@@ -48,8 +48,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { ContentAnswersComponent } from './content-answers/content-answers.component';
-import { HttpClientModule } from '@angular/common/http';
-import { InMemoryDataService } from './in-memory-data.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RoomComponent } from './room/room.component';
 import { RoomCreationComponent } from './room-creation/room-creation.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
@@ -73,6 +72,7 @@ import { ContentAnswersListComponent } from './content-answers-list/content-answ
 import { ContentAnswerService } from './content-answer.service';
 import { RoomDeletionComponent } from './room-deletion/room-deletion.component';
 import { RoomModificationComponent } from './room-modification/room-modification.component';
+import { AuthenticationInterceptor } from './authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -150,6 +150,11 @@ import { RoomModificationComponent } from './room-modification/room-modification
     HttpClientModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    },
     NotificationService,
     AuthenticationService,
     AuthenticationGuard,
