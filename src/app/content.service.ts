@@ -5,12 +5,14 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { ErrorHandlingService } from './error-handling.service';
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({})
 };
 
 @Injectable()
 export class ContentService extends ErrorHandlingService {
   private apiBaseUrl = 'https://arsnova-staging.mni.thm.de/api';
+  private  apiContentUrl = '/content/';
+  private apiFindUrl = '/find';
 
   constructor(private http: HttpClient) {
     super();
@@ -24,13 +26,15 @@ export class ContentService extends ErrorHandlingService {
   }
 
   addContent(content: Content): Observable<Content> {
-    return this.http.post<Content>(this.contentUrl, content, httpOptions).pipe(
+    const connectionurl = this.apiBaseUrl + this.apiContentUrl;
+    return this.http.post<Content>(connectionurl, content, httpOptions).pipe(
       catchError(this.handleError<Content>('addContent'))
     );
   }
 
   getContent(contentId: string): Observable<Content> {
-    const url = `${this.contentUrl}/?contentId=${contentId}`;
+    const connectionurl = this.apiBaseUrl;
+    const url = `${connectionurl}/?contentId=${contentId}`;
     return this.http.get<Content>(url).pipe(
       catchError(this.handleError<Content>(`getContent id=${contentId}`))
     );

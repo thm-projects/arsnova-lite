@@ -1,7 +1,7 @@
 import { ContentType } from './content-type';
 
 export class Content {
-  contentId: string;
+  id: string;
   revision: string;
   roomId: string;
   subject: string;
@@ -18,7 +18,7 @@ export class Content {
               round: number,
               format: ContentType,
               formatAttributes: Map<string, string>) {
-    this.contentId = contentId;
+    this.id = contentId;
     this.revision = revision;
     this.roomId = roomId;
     this.subject = subject;
