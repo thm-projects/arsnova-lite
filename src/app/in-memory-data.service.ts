@@ -1,7 +1,6 @@
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { ContentType } from './content-type';
+import { Format } from './content';
 
-export class InMemoryDataService implements InMemoryDbService {
+export class InMemoryDataService {
   /**
    * Gets called by the in memory db for generating ids for newly inserted entities.
    * As the default genId function is only capable of generating numeric ids but we're
@@ -87,22 +86,22 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const contents = [
       {
-        contentId: '1',
+        id: '1',
         revision: '1',
         roomId: '1',
-        subject: 'Text Content 1',
-        body: 'This is a body of a text content.',
+        subject: 'Textaufgabe 1',
+        body: 'testcontent alpha beta',
         round: 1,
-        format: ContentType.TEXT
+        format: Format.TEXT
       },
       {
-        contentId: '2',
+        id: '2',
         revision: '2',
         roomId: '3',
-        subject: 'Text Content 2',
-        body: 'This is yet another body of a text content.',
-        round: 2,
-        format: ContentType.TEXT
+        subject: 'Textaufgabe 2',
+        body: 'Ein Mann kauft 20 Melonen. Eine Melone wiegt jeweils 5kg. Berechnen Sie das Gesamtgewicht.',
+        round: 5,
+        format: Format.TEXT
       }
     ];
 
