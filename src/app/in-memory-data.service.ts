@@ -1,6 +1,5 @@
 import { ContentType } from './content-type';
 
-
 export class InMemoryDataService {
   /**
    * Gets called by the in memory db for generating ids for newly inserted entities.

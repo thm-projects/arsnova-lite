@@ -10,14 +10,14 @@ const httpOptions = {
 
 @Injectable()
 export class ContentService extends ErrorHandlingService {
-  private contentUrl = 'api/contents';
+  private apiBaseUrl = 'https://arsnova-staging.mni.thm.de/api';
 
   constructor(private http: HttpClient) {
     super();
   }
 
   getContents(roomId: string): Observable<Content[]> {
-    const url = `${this.contentUrl}/?roomId=${roomId}`;
+    const url = `${this.apiBaseUrl}/?roomId=${roomId}`;
     return this.http.get<Content[]>(url).pipe(
       catchError(this.handleError('getContents', []))
     );
