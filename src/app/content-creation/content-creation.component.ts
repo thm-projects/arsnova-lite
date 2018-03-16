@@ -5,6 +5,7 @@ import { NotificationService } from '../notification.service';
 import { Content } from '../content';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { RoomComponent } from '../room/room.component';
+import { ContentType } from '../content-type';
 
 @Component({
   selector: 'app-content-creation',
@@ -16,6 +17,7 @@ export class ContentCreationComponent implements OnInit {
   body: string;
   roomId: string;
   emptyInputs = false;
+  public format = ContentType;
 
   constructor(private contentService: ContentService,
               private router: Router,
@@ -38,11 +40,20 @@ export class ContentCreationComponent implements OnInit {
   addContent(subject: string, body: string) {
     subject = subject.trim();
     body = body.trim();
+    console.log(Object.keys(this.format[10]));
     if (!subject || !body) {
       this.emptyInputs = true;
       return;
     }
-    this.contentService.addContent({ subject: subject, body: body, roomId: this.roomId } as Content)
+    this.contentService.addContent({
+      id: '',
+      subject: subject,
+      body: body,
+      roomId: this.roomId,
+      revision: '',
+      format: this.format[10],
+      type: 'Content'
+    } as Content)
       .subscribe(content => {
         this.notification.show(`Content '${content.subject}' successfully created.`);
         this.router.navigate([`/creator/room/${content.roomId}/${content.id}`]);

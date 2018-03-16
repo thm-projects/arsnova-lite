@@ -7,8 +7,9 @@ export class Content {
   subject: string;
   body: string;
   round: number;
-  format: ContentType;
+  format: string;
   formatAttributes: Map<string, string>;
+  type: string;
 
   constructor(contentId: string,
               revision: string,
@@ -16,8 +17,9 @@ export class Content {
               subject: string,
               body: string,
               round: number,
-              format: ContentType,
-              formatAttributes: Map<string, string>) {
+              format: string,
+              formatAttributes: Map<string, string>,
+              type: string) {
     this.id = contentId;
     this.revision = revision;
     this.roomId = roomId;
@@ -26,5 +28,6 @@ export class Content {
     this.round = round;
     this.format = format;
     this.formatAttributes = formatAttributes;
+    this.type = type;
   }
 }

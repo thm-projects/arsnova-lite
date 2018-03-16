@@ -13,6 +13,7 @@ export class ChoiceContent extends Content {
               subject: string,
               body: string,
               round: number,
+              type: string,
               options: AnswerOption[],
               correctOptionIndexes: number[],
               multiple: boolean) {
@@ -23,9 +24,10 @@ export class ChoiceContent extends Content {
       body,
       round,
       ContentType.CHOICE,
-      new Map());
-      this.options = options;
-      this.correctOptionIndexes = correctOptionIndexes;
-      this.multiple = multiple;
-    }
+      new Map(),
+      type);
+    this.options = options;
+    this.correctOptionIndexes = correctOptionIndexes;
+    this.multiple = multiple;
   }
+}
