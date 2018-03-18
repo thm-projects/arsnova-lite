@@ -7,7 +7,7 @@ export class Content {
   subject: string;
   body: string;
   round: number;
-  format: string;
+  format: ContentType;
   formatAttributes: Map<string, string>;
   type: string;
 
@@ -17,7 +17,7 @@ export class Content {
               subject: string,
               body: string,
               round: number,
-              format: string,
+              format: ContentType,
               formatAttributes: Map<string, string>,
               type: string) {
     this.id = contentId;

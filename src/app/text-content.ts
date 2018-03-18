@@ -8,7 +8,9 @@ export class TextContent extends Content {
               roomId: string,
               subject: string,
               body: string,
-              round: number) {
+              round: number,
+              format: ContentType,
+              type: string) {
     super(contentId,
       revision,
       roomId,
@@ -16,6 +18,7 @@ export class TextContent extends Content {
       body,
       round,
       ContentType.TEXT,
-      new Map());
+      new Map(),
+      type);
   }
 }
