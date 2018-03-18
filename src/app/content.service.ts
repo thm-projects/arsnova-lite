@@ -12,7 +12,7 @@ const httpOptions = {
 @Injectable()
 export class ContentService extends ErrorHandlingService {
   private apiBaseUrl = 'https://arsnova-staging.mni.thm.de/api';
-  private apiContentUrl = '/content/';
+  private apiContentUrl = '/content';
   private apiFindUrl = '/find';
 
   constructor(private http: HttpClient) {
@@ -27,17 +27,23 @@ export class ContentService extends ErrorHandlingService {
   }
 
   addContent(content: Content): Observable<Content> {
-    const connectionurl = this.apiBaseUrl + this.apiContentUrl;
-    return this.http.post<Content>(connectionurl, { content: content }, httpOptions).pipe(
+    const connectionurl = this.apiBaseUrl + this.apiContentUrl + '/';
+    return this.http.post<Content>(connectionurl, {
+      roomId: content.roomId,
+      subject: content.subject,
+      body: content.body,
+      type: content.type,
+      format: content.format
+    }, httpOptions).pipe(
       catchError(this.handleError<Content>('addContent'))
     );
   }
 
-  getContent(contentId: string): Observable<Content> {
-    const connectionurl = this.apiBaseUrl;
-    const url = `${connectionurl}/?contentId=${contentId}`;
+  getContent(id: string): Observable<Content> {
+    const connectionurl = this.apiBaseUrl + this.apiContentUrl;
+    const url = `${connectionurl}/${id}`;
     return this.http.get<Content>(url).pipe(
-      catchError(this.handleError<Content>(`getContent id=${contentId}`))
+      catchError(this.handleError<Content>(`getContent id=${id}`))
     );
   }
 }

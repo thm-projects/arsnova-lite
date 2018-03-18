@@ -40,23 +40,20 @@ export class ContentCreationComponent implements OnInit {
   addContent(subject: string, body: string) {
     subject = subject.trim();
     body = body.trim();
-    console.log(Object.keys(this.format[10]));
     if (!subject || !body) {
       this.emptyInputs = true;
       return;
     }
     this.contentService.addContent({
-      id: '',
+      roomId: this.roomId,
       subject: subject,
       body: body,
-      roomId: this.roomId,
-      revision: '',
-      format: this.format[10],
-      type: 'Content'
+      type: 'Content',
+      format: this.format.TEXT
     } as Content)
       .subscribe(content => {
         this.notification.show(`Content '${content.subject}' successfully created.`);
-        this.router.navigate([`/creator/room/${content.roomId}/${content.id}`]);
+        this.router.navigate([`content/${content.id }`]);
         this.dialogRef.close();
       });
   }
