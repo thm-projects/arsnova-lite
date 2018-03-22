@@ -9,7 +9,7 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 import { UserRole } from './models/user-roles.enum';
 import { RoomParticipantPageComponent } from './components/pages/room-participant-page/room-participant-page.component';
 import { RoomCreatorPageComponent } from './components/pages/room-creator-page/room-creator-page.component';
-import { CommentListComponent } from './components/fragments/comment-list/comment-list.component';
+import { CommentListComponent } from './components/pages/comment-list/comment-list.component';
 import { ContentListComponent } from './components/fragments/content-list/content-list.component';
 import { StatisticsComponent } from './components/fragments/statistics/statistics.component';
 import { ContentCreatePageComponent } from './components/pages/content-create-page/content-create-page.component';

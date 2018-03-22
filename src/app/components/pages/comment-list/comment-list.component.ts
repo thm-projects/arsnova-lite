@@ -45,19 +45,11 @@ export class CommentListComponent implements OnInit {
   }
 
   getComments(roomId: string): void {
-    if (this.userRole === UserRole.CREATOR) {
-      this.commentService.getComments(roomId)
-        .subscribe(comments => {
-          this.comments = comments;
-          this.isLoading = false;
-        });
-    } else if (this.userRole === UserRole.PARTICIPANT) {
-      this.commentService.searchComments(roomId, this.user.id)
-        .subscribe(comments => {
-          this.comments = comments;
-          this.isLoading = false;
-        });
-    }
+    this.commentService.getComments(roomId)
+      .subscribe(comments => {
+        this.comments = comments;
+        this.isLoading = false;
+      });
   }
 
   setRead(comment: Comment): void {

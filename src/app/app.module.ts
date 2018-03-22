@@ -7,7 +7,7 @@ import { RoomJoinComponent } from './components/fragments/room-join/room-join.co
 import { LoginComponent } from './components/fragments/login/login.component';
 import { RegisterComponent } from './components/dialogs/register/register.component';
 import { PasswordResetComponent } from './components/dialogs/password-reset/password-reset.component';
-import { CommentListComponent } from './components/fragments/comment-list/comment-list.component';
+import { CommentListComponent } from './components/pages/comment-list/comment-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundPageComponent } from './components/pages/page-not-found-page/page-not-found-page.component';
