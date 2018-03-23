@@ -5,9 +5,6 @@ import { Comment } from '../../../models/comment';
 import { CommentService } from '../../../services/http/comment.service';
 import { RoomService } from '../../../services/http/room.service';
 import { NotificationService } from '../../../services/util/notification.service';
-import { AuthenticationService } from '../../../services/http/authentication.service';
-import { UserRole } from '../../../models/user-roles.enum';
-import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-comment-list',
@@ -15,23 +12,17 @@ import { User } from '../../../models/user';
   styleUrls: ['./comment-list.component.scss']
 })
 export class CommentListComponent implements OnInit {
-  userRoleTemp: any = UserRole.CREATOR;
-  userRole: UserRole;
-  user: User;
   comments: Comment[];
   isLoading = true;
 
-  constructor(protected authenticationService: AuthenticationService,
-              private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
               private roomService: RoomService,
               private location: Location,
               private commentService: CommentService,
-              private notification: NotificationService) {
+              private notification: NotificationService ) {
   }
 
   ngOnInit() {
-    this.userRole = this.authenticationService.getRole();
-    this.user = this.authenticationService.getUser();
     this.route.params.subscribe(params => {
       this.getRoom(params['roomId']);
     });
@@ -62,9 +53,5 @@ export class CommentListComponent implements OnInit {
     this.commentService.deleteComment(comment).subscribe(room => {
       this.notification.show(`Comment '${comment.subject}' successfully deleted.`);
     });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

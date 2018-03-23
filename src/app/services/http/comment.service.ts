@@ -16,8 +16,7 @@ export class CommentService extends BaseHttpService {
   private commentsUrl = '/comment';
   private findCommentUrl = '/find';
 
-  constructor( private http: HttpClient,
-               private authService: AuthenticationService ) {
+  constructor( private http: HttpClient ) {
     super();
   }
 
@@ -50,10 +49,9 @@ export class CommentService extends BaseHttpService {
   }
 
   updateComment(comment: Comment): Observable<any> {
-    const url = `${this.apiBaseUrl}${this.commentsUrl}/${comment.id} + '/'`;
+    const url = `${this.apiBaseUrl}${this.commentsUrl}/${comment.id}`;
     return this.http.put(url, {
-      ownerId: this.authService.getUser().id,
-      roomId: comment.roomId, subject: comment.subject, body: comment.body, read: !comment.read,
+      read: !comment.read
     }, httpOptions).pipe(
       tap(_ => ''),
       catchError(this.handleError<any>('updateComment'))
