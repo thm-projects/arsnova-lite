@@ -78,6 +78,7 @@ import { ContentTextParticipantComponent } from './components/fragments/content-
 import { ContentTextCreatorComponent } from './components/fragments/content-text-creator/content-text-creator.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { HeaderComponent } from './components/fragments/header/header.component';
+import { FooterComponent } from './components/fragments/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { HeaderComponent } from './components/fragments/header/header.component'
     ContentTextParticipantComponent,
     StatisticsComponent,
     ContentTextCreatorComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   entryComponents: [
     RegisterComponent,
