@@ -79,6 +79,7 @@ import { ContentTextCreatorComponent } from './components/fragments/content-text
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { HeaderComponent } from './components/fragments/header/header.component';
 import { FooterComponent } from './components/fragments/footer/footer.component';
+import { FooterLoginDialogComponent } from './components/dialogs/footer-login-dialog/footer-login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -112,14 +113,16 @@ import { FooterComponent } from './components/fragments/footer/footer.component'
     StatisticsComponent,
     ContentTextCreatorComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FooterLoginDialogComponent
   ],
   entryComponents: [
     RegisterComponent,
     PasswordResetComponent,
     RoomCreateComponent,
     RoomDeleteComponent,
-    RoomEditComponent
+    RoomEditComponent,
+    FooterLoginDialogComponent
   ],
   imports: [
     AppRoutingModule,
