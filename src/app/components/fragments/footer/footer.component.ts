@@ -4,6 +4,7 @@ import { NotificationService } from '../../../services/util/notification.service
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { FooterLoginDialogComponent } from '../../dialogs/footer-login-dialog/footer-login-dialog.component';
+import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'app-footer',
@@ -17,7 +18,8 @@ export class FooterComponent implements OnInit {
     public authenticationService: AuthenticationService,
     public notificationService: NotificationService,
     public router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public themeSwitcher: ThemeSwitcherComponent
   ) { }
 
   ngOnInit() {

@@ -80,6 +80,8 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
 import { HeaderComponent } from './components/fragments/header/header.component';
 import { FooterComponent } from './components/fragments/footer/footer.component';
 import { FooterLoginDialogComponent } from './components/dialogs/footer-login-dialog/footer-login-dialog.component';
+import { ThemeSwitcherComponent } from './components/fragments/theme-switcher/theme-switcher.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,8 @@ import { FooterLoginDialogComponent } from './components/dialogs/footer-login-di
     ContentTextCreatorComponent,
     HeaderComponent,
     FooterComponent,
-    FooterLoginDialogComponent
+    FooterLoginDialogComponent,
+    ThemeSwitcherComponent
   ],
   entryComponents: [
     RegisterComponent,
@@ -162,7 +165,8 @@ import { FooterLoginDialogComponent } from './components/dialogs/footer-login-di
     MatToolbarModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    OverlayModule
   ],
   providers: [
     {
@@ -177,7 +181,8 @@ import { FooterLoginDialogComponent } from './components/dialogs/footer-login-di
     RoomService,
     CommentService,
     ContentService,
-    ContentAnswerService
+    ContentAnswerService,
+    ThemeSwitcherComponent
   ],
   bootstrap: [AppComponent]
 })
