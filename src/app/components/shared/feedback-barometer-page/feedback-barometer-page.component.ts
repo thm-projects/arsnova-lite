@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/http/authentication.service';
 import { UserRole } from '../../../models/user-roles.enum';
 import { NotificationService } from '../../../services/util/notification.service';
+import { RxStompService } from '@stomp/ng2-stompjs';
 
 /* ToDo: Use TranslateService */
 
@@ -18,16 +19,22 @@ export class FeedbackBarometerPageComponent implements OnInit {
     { state: 3, name: 'sentiment_very_dissatisfied', message: 'You\'ve lost me.', count: 0, },
   ];
   userRole: UserRole;
+  roomId: number;
+  feedBackUrl = '/Room/' + this.roomId;
 
-  dummy = [2, 3, 2, 0, 1]; // dummy data -> delete this with api implementation and add get-data
+  data = [2, 3, 2, 1]; // dummy data -> delete this with api implementation and add get-data
 
   constructor(
     private authenticationService: AuthenticationService,
-    private notification: NotificationService, ) {}
+    private notification: NotificationService,
+    private rxStompService: RxStompService) {}
 
   ngOnInit() {
     this.userRole = this.authenticationService.getRole();
-    this.updateFeedback(this.dummy);
+    this.rxStompService.watch(this.feedBackUrl).subscribe(message => {
+      this.data = message.body; // Adjust to backend implementation
+    });
+    this.updateFeedback(this.data);
   }
 
   private updateFeedback(data) {
@@ -39,8 +46,8 @@ export class FeedbackBarometerPageComponent implements OnInit {
   }
 
   submitFeedback(state: string) {
-    this.dummy[state] += 1; // delete this with api implementation and add submit-data
-    this.updateFeedback(this.dummy);
+    this.rxStompService.publish({ destination: this.feedBackUrl, body: state });
+    this.updateFeedback(this.data);
     this.notification.show(`Feedback submitted to room.`);
   }
 
