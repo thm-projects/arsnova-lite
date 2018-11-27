@@ -26,6 +26,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageService } from './services/util/language.service';
 import { MarkdownService, MarkedOptions } from 'ngx-markdown';
+import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { myRxStompConfig } from './rx-stomp.config';
 export function dialogClose(dialogResult: any) {
 }
 
@@ -80,6 +82,15 @@ export function dialogClose(dialogResult: any) {
     {
       provide: MAT_DIALOG_DATA,
       useValue: []
+    },
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
     }
   ],
   bootstrap: [AppComponent]
