@@ -29,7 +29,7 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "core-js": "^2.5.7",
     "hammerjs": "^2.0.8",
-    "ngx-markdown": "^1.6.0",
+    "ngx-markdown": "^7.0.2",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.2.2",
     "tslint-eslint-rules": "^5.3.1",
