@@ -51,6 +51,16 @@ ngbuild:
     paths:
       - "$BUILD_DIR"
 
+docker_image:
+  stage: deploy
+  tags:
+    - kaniko
+  dependencies:
+    - ngbuild
+  script:
+    - echo "$DOCKER_REGISTRY_CONFIG" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "$CI_PROJECT_DIR" --dockerfile "$CI_PROJECT_DIR/docker/Dockerfile" --destination "$DOCKER_REGISTRY_HOST/arsnova-app/lite-frontend" --build-arg "ARSNOVA_BUILD_DIR=`echo $BUILD_DIR`"
+
 #review:
 #  stage: review
 #  script:
