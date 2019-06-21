@@ -5,7 +5,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Prerequisite
 
 Clone the repository and setup git.
-You also need the arsnova-backend running in version 3+ (`master` branch).
+
+This project depends on two other repositories:
+- arsnova-backend running in version 3+ (`master` branch).
+- arsnova-comment-service
+
+There needs to be a rabbitmq set up, too (see arsnova-backend documentation).
+
+
+## Dependencies
 
 Install all dependencies with `npm install`.
 
