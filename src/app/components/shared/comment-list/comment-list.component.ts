@@ -14,11 +14,28 @@ import { Room } from '../../../models/room';
 import { RoomService } from '../../../services/http/room.service';
 import { VoteService } from '../../../services/http/vote.service';
 import { NotificationService } from '../../../services/util/notification.service';
+import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
-  styleUrls: ['./comment-list.component.scss']
+  styleUrls: ['./comment-list.component.scss'],
+  animations: [
+
+    trigger('sortList', [
+      transition('* => *', [
+
+        query(':enter', style({ opacity: 0 }), { optional: true }),
+
+        query(':enter', stagger('0.3s', [
+          animate('1s ease-in', keyframes([
+            style({ opacity: 0, transform: 'translateY(-20%)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(10%)',  offset: 0.4 }),
+            style({ opacity: 1, transform: 'translateY(0)',     offset: 1.0 }),
+          ]))]), { optional: true })
+      ])
+    ])
+  ]
 })
 export class CommentListComponent implements OnInit {
   @ViewChild('searchBox') searchField: ElementRef;
