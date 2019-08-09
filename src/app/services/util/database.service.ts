@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dexie } from 'dexie';
+import  Dexie from 'dexie';
 import { Comment } from '../../models/comment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class DatabaseService extends Dexie {
   constructor() {
     super('indexedDB');
     this.version(1).stores({
-      comments: 'id, roomId, userId, revision, body, read, correct, favorite, timestamp,' +
+      comments: 'id, roomId, userId, revision, body, read, correct, favorite, timestamp, score' +
         'createdFromLecturer, highlighted, ack'
     });
   }

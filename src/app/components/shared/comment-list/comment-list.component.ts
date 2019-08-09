@@ -14,6 +14,8 @@ import { Room } from '../../../models/room';
 import { RoomService } from '../../../services/http/room.service';
 import { VoteService } from '../../../services/http/vote.service';
 import { NotificationService } from '../../../services/util/notification.service';
+import { DatabaseService } from '../../../services/util/database.service';
+import * as uuidV4 from 'uuid/v4';
 
 @Component({
   selector: 'app-comment-list',
@@ -57,7 +59,8 @@ export class CommentListComponent implements OnInit {
               private wsCommentService: WsCommentServiceService,
               protected roomService: RoomService,
               protected voteService: VoteService,
-              private notificationService: NotificationService
+              private notificationService: NotificationService,
+              private databaseService: DatabaseService
   ) {
     langService.langEmitter.subscribe(lang => translateService.use(lang));
   }
@@ -91,14 +94,16 @@ export class CommentListComponent implements OnInit {
       });
     }
     this.currentSort = this.votedesc;
-    this.commentService.getAckComments(this.roomId)
+    /*this.commentService.getAckComments(this.roomId)
       .subscribe(comments => {
         this.comments = comments;
         this.getComments();
-      });
+      });*/
     this.translateService.get('comment-list.search').subscribe(msg => {
       this.searchPlaceholder = msg;
     });
+    this.updateComments();
+    this.getComments();
   }
 
   checkScroll(): void {
@@ -218,12 +223,31 @@ export class CommentListComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.send(result);
+          this.addComment(result);
         } else {
           return;
         }
       });
   }
+
+  addComment(comment: Comment): void {
+    this.databaseService.comments.add(comment);
+
+    this.updateComments();
+  }
+
+  /*addComment(comment: Comment): void {
+    this.databaseService.comments.add({id: uuidV4(), roomId: comment.roomId, userId: comment.userId, revision: comment.revision,
+      body: comment.body, read: comment.read, correct: comment.correct, favorite: comment.favorite, timestamp: comment.timestamp,
+      score: comment.score, createdFromLecturer: comment.createdFromLecturer, highlighted: comment.highlighted, ack: comment.ack});
+
+    this.updateComments();
+  }*/
+
+  async updateComments() {
+    this.comments = await this.databaseService.comments.toArray();
+  }
+
 
   send(comment: Comment): void {
     let message;
