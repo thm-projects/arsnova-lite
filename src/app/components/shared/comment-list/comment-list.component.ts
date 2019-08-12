@@ -15,7 +15,6 @@ import { RoomService } from '../../../services/http/room.service';
 import { VoteService } from '../../../services/http/vote.service';
 import { NotificationService } from '../../../services/util/notification.service';
 import { DatabaseService } from '../../../services/util/database.service';
-import * as uuidV4 from 'uuid/v4';
 
 @Component({
   selector: 'app-comment-list',
@@ -94,16 +93,11 @@ export class CommentListComponent implements OnInit {
       });
     }
     this.currentSort = this.votedesc;
-    /*this.commentService.getAckComments(this.roomId)
-      .subscribe(comments => {
-        this.comments = comments;
-        this.getComments();
-      });*/
+    this.sync();
+    this.getComments();
     this.translateService.get('comment-list.search').subscribe(msg => {
       this.searchPlaceholder = msg;
     });
-    this.updateComments();
-    this.getComments();
   }
 
   checkScroll(): void {
@@ -161,7 +155,8 @@ export class CommentListComponent implements OnInit {
         c.body = payload.body;
         c.id = payload.id;
         c.timestamp = payload.timestamp;
-        this.comments = this.comments.concat(c);
+        this.addComment(c);
+        this.updateComments();
         break;
       case 'CommentPatched':
         // ToDo: Use a map for comments w/ key = commentId
@@ -192,6 +187,7 @@ export class CommentListComponent implements OnInit {
             }
           }
         }
+        this.updateDatabase();
         break;
       case 'CommentHighlighted':
         // ToDo: Use a map for comments w/ key = commentId
@@ -203,9 +199,8 @@ export class CommentListComponent implements OnInit {
         break;
       case 'CommentDeleted':
         for (let i = 0; i < this.comments.length; i++) {
-          this.comments = this.comments.filter(function (el) {
-            return el.id !== payload.id;
-          });
+          this.deleteComment(payload.id);
+          this.updateComments();
         }
         break;
     }
@@ -223,7 +218,7 @@ export class CommentListComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.addComment(result);
+          this.send(result);
         } else {
           return;
         }
@@ -232,20 +227,27 @@ export class CommentListComponent implements OnInit {
 
   addComment(comment: Comment): void {
     this.databaseService.comments.add(comment);
-
-    this.updateComments();
   }
 
-  /*addComment(comment: Comment): void {
-    this.databaseService.comments.add({id: uuidV4(), roomId: comment.roomId, userId: comment.userId, revision: comment.revision,
-      body: comment.body, read: comment.read, correct: comment.correct, favorite: comment.favorite, timestamp: comment.timestamp,
-      score: comment.score, createdFromLecturer: comment.createdFromLecturer, highlighted: comment.highlighted, ack: comment.ack});
-
-    this.updateComments();
-  }*/
+  deleteComment(id: string) {
+    this.databaseService.comments.delete(id);
+  }
 
   async updateComments() {
     this.comments = await this.databaseService.comments.toArray();
+  }
+
+  async sync() {
+    this.commentService.getAckComments(this.roomId)
+      .subscribe(newComments => {
+        this.comments = newComments;
+        this.updateDatabase();
+        this.updateComments();
+      });
+  }
+
+  async updateDatabase() {
+    this.databaseService.comments.bulkPut(this.comments);
   }
 
 
