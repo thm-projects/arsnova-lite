@@ -42,7 +42,6 @@
     "tslib": "^1.9.0",
     "tslint-eslint-rules": "^5.3.1",
     "typescript-map": "0.0.7",
-    "uuid": "^3.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
