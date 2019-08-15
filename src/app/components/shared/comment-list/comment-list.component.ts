@@ -156,7 +156,6 @@ export class CommentListComponent implements OnInit {
         c.id = payload.id;
         c.timestamp = payload.timestamp;
         this.addComment(c);
-        this.updateComments();
         break;
       case 'CommentPatched':
         // ToDo: Use a map for comments w/ key = commentId
@@ -166,34 +165,36 @@ export class CommentListComponent implements OnInit {
               switch (key) {
                 case this.read:
                   this.comments[i].read = <boolean>value;
+                  this.updateDatabase();
                   break;
                 case this.correct:
                   this.comments[i].correct = <boolean>value;
+                  this.updateDatabase();
                   break;
                 case this.favorite:
                   this.comments[i].favorite = <boolean>value;
+                  this.updateDatabase();
                   break;
                 case 'score':
                   this.comments[i].score = <number>value;
+                  this.updateDatabase();
                   break;
                 case this.ack:
                   const isNowAck = <boolean>value;
                   if (!isNowAck) {
-                    this.comments = this.comments.filter(function (el) {
-                      return el.id !== payload.id;
-                    });
+                    this.deleteComment(payload.id);
                   }
               }
             }
           }
         }
-        this.updateDatabase();
         break;
       case 'CommentHighlighted':
         // ToDo: Use a map for comments w/ key = commentId
         for (let i = 0; i < this.comments.length; i++) {
           if (payload.id === this.comments[i].id) {
             this.comments[i].highlighted = <boolean>payload.lights;
+            this.updateDatabase();
           }
         }
         break;
@@ -227,10 +228,12 @@ export class CommentListComponent implements OnInit {
 
   addComment(comment: Comment): void {
     this.databaseService.comments.add(comment);
+    this.updateComments();
   }
 
   deleteComment(id: string) {
     this.databaseService.comments.delete(id);
+    this.updateComments();
   }
 
   async updateComments() {
