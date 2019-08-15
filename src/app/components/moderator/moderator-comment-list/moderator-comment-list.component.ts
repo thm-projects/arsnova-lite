@@ -181,7 +181,6 @@ export class ModeratorCommentListComponent implements OnInit {
         this.comments = this.comments.concat(c);
         break;
     }
-    console.log(msg);
     this.filterComments(this.currentFilter);
     this.sortComments(this.currentSort);
     this.searchComments();
