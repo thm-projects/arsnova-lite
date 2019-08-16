@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import  Dexie from 'dexie';
+import Dexie from 'dexie';
 import { Comment } from '../../models/comment';
 
 @Injectable({
